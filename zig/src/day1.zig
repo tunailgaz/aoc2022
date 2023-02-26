@@ -9,7 +9,7 @@ fn remove_smallest(list: anytype) void {
     var smallest: usize = 0;
     var smallest_index: usize = 0;
 
-    for (list.items) |val, val_index| {
+    for (list.items, 0..) |val, val_index| {
         if (val_index == 0) smallest = val;
 
         if (val < smallest) {
