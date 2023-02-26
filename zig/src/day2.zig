@@ -27,41 +27,29 @@ pub fn parseRps(in: u8) !rps {
     };
 }
 
-pub fn getScore(p1: rps, p2: rps) u8 {
-    // 1 for Rock, 2 for Paper, and 3 for Scissors
-    var base_score: u8 = switch (p1) {
-        rps.rock => 1,
-        rps.paper => 2,
-        rps.scissors => 3,
-    };
+// 0 if loss, 3 if draw, 6 if won
+var rpsScores: [3][3]u8 = .{ .{ 3, 0, 6 }, .{ 6, 3, 0 }, .{ 0, 6, 3 } };
 
-    // 0 if you lost, 3 if the round was a draw, and 6 if you won
-    return switch (p1) {
-        rps.rock => {
-            return switch (p2) {
-                rps.rock => base_score + 3,
-                rps.paper => base_score + 0,
-                rps.scissors => base_score + 6,
-            };
-        },
-        rps.paper => {
-            return switch (p2) {
-                rps.rock => base_score + 6,
-                rps.paper => base_score + 3,
-                rps.scissors => base_score,
-            };
-        },
-        rps.scissors => {
-            return switch (p2) {
-                rps.rock => base_score + 0,
-                rps.paper => base_score + 6,
-                rps.scissors => base_score + 3,
-            };
-        },
-    };
+// map that gives you the rps you need to play to lose/draw/win the first rps.
+// rps -> lose/draw/win -> rps
+var rpsKey: [3][3]rps = .{
+    .{ rps.scissors, rps.rock, rps.paper },
+    .{ rps.rock, rps.paper, rps.scissors },
+    .{ rps.paper, rps.scissors, rps.rock },
+};
+
+pub fn evalRps(l: rps, r: rps) u8 {
+    const i = @enumToInt(l);
+    const j = @enumToInt(r);
+    return rpsScores[i][j];
 }
 
-const data = @embedFile("data/day2_p1.txt");
+// Rock > Scissors
+// Scissors > Paper
+// Paper > Rock
+
+const data = @embedFile("data/day2.txt");
+// const data = @embedFile("data/day2.example");
 
 pub fn main() !void {
     var arena = std.heap.ArenaAllocator.init(std.heap.page_allocator);
@@ -74,13 +62,25 @@ pub fn main() !void {
 
     var lines_it = tokenize(u8, data, "\n");
 
-    var player_total_score: u32 = 0;
+    var part1: u32 = 0;
+    var part2: u32 = 0;
+
+    var rounds: u32 = 0;
     while (lines_it.next()) |line| {
+        rounds += 1;
+
         const p1 = try parseRps(line[0]); // them
         const p2 = try parseRps(line[2]); // us
 
-        player_total_score += getScore(p2, p1);
-        // print("{s} score: {} \n", .{ line, p2_score });
+        const score = evalRps(p2, p1);
+        const total = @enumToInt(p2) + 1 + score;
+
+        part1 += total;
+
+        const shouldPlay = rpsKey[@enumToInt(p1)][@enumToInt(p2)];
+
+        part2 += @enumToInt(shouldPlay) + 1 + (@enumToInt(p2) * 3);
     }
-    print("total: {} \n", .{player_total_score});
+    print("part1: {} \n", .{part1});
+    print("part2: {} \n", .{part2});
 }
