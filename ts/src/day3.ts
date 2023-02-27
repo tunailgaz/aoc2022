@@ -28,6 +28,7 @@ const part1 = (list: string[]): number => {
   return total_priority;
 }
 
+
 const part2 = (list: string[]): number => {
   let total = 0;
 
