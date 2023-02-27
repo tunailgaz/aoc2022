@@ -6,4 +6,11 @@
 ###### Zig Language
 
 - [x] Day1
-- [ ] Day2
+- [x] Day2
+- [x] Day3
+- [ ] Day4
+
+
+###### Typescript Language
+
+- [x] Day3
