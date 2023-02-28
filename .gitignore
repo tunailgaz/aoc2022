@@ -3,3 +3,5 @@
 ts/node_modules
 ts/package-lock.json
 
+zig-cache
+zig-out
