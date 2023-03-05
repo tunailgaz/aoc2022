@@ -36,6 +36,9 @@ pub fn main() !void {
         }
     }
 
+    var testingo: u8 = 10;
+    _ = testingo;
+
     // intersting
     // https://github.com/jordanlewis/aoc/blob/main/2022/src/day24.zig
 
