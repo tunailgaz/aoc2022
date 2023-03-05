@@ -43,11 +43,12 @@ const part2 = (list: string[]): number => {
   for (let group of groups) {
     for (let item of [...group[0]]) {
       // console.log(item);
-      if(group[1].indexOf(item) > -1 && group[2].indexOf(item) > -1) {
+      if (group[1].indexOf(item) > -1 && group[2].indexOf(item) > -1) {
         // console.log(`found: ${item}: ${get_item_priority(item)}`);
         total += get_item_priority(item);
         break;
       }
+      // testingo
     }
   }
   return total;
