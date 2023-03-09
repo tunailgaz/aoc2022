@@ -9,9 +9,10 @@
 - [x] Day2
 - [x] Day3
 - [x] Day4
-- [ ] Day5
+- [x] Day5
 
 
 ###### Typescript Language
 
 - [x] Day3
+- [x] Day5
