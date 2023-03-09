@@ -16,6 +16,7 @@ pub fn main() !void {
     var buckets2: [9]ArrayList(u8) = .{ArrayList(u8).init(allocator)} ** 9;
 
     while (lines_it.next()) |line| {
+        print("line len {} \n", .{line.len});
         if (line.len == 0 or line[0] == ' ') continue;
         if (line[0] == '[') {
             var iter = std.mem.tokenize(u8, line, "[] ");

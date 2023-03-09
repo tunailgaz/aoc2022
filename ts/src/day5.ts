@@ -25,10 +25,14 @@ const getSize = (stacks: Array<string>): number => {
     part_2_list[i] = [];
   }
 
+  
   for(let line of stack_lines.reverse()) {
+    
+    const space_length_between_cargo =  (line.length+1) / stack_size  
+    
     if (line.indexOf('[')>-1) {
       for(let i=0; i<stack_size; i++) {
-        let cargo = line.slice(4 * i, 4 * i + 4 );
+        let cargo = line.slice(space_length_between_cargo * i, space_length_between_cargo * i + space_length_between_cargo);
         if(cargo.trim()){
           part_1_list[i].push(cargo.trim().replace(/[^A-Z]/g,''))
           part_2_list[i].push(cargo.trim().replace(/[^A-Z]/g,''))
