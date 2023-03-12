@@ -1,5 +1,5 @@
 .idea
-
+.ignore
 ts/node_modules
 ts/package-lock.json
 
