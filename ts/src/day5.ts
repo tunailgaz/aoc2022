@@ -15,6 +15,7 @@ const getSize = (stacks: Array<string>): number => {
 
   const stack_lines = file_parts[0]?.split("\n");
   const move_lines = file_parts[1]?.split("\n");
+  
   const stack_size = getSize(stack_lines);
 
   let part_1_list: string[][] = [];
@@ -29,7 +30,7 @@ const getSize = (stacks: Array<string>): number => {
   for(let line of stack_lines.reverse()) {
     
     const space_length_between_cargo =  (line.length+1) / stack_size  
-    
+
     if (line.indexOf('[')>-1) {
       for(let i=0; i<stack_size; i++) {
         let cargo = line.slice(space_length_between_cargo * i, space_length_between_cargo * i + space_length_between_cargo);
