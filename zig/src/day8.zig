@@ -7,7 +7,7 @@ const print = std.debug.print;
 const area_size: u16 = 99;
 const data = @embedFile("data/day8");
 
-fn check_is_taller(item: u8, items: []u8) bool {
+fn is_biggest_item(item: u8, items: []u8) bool {
     for (items) |i| {
         if (i >= item) {
             return false;
@@ -40,13 +40,12 @@ pub fn main() !void {
             }
         }
     }
+    print("edge_count: {}\n", .{edge_count});
 
     for (area, 0..) |trees, i| {
         for (trees.items, 0..) |tree, j| {
             // not edge cases
             if ((i != 0 and i != area.len - 1) and j != 0 and j != trees.items.len - 1) {
-                // std.debug.print("edge: {c}", .{tree});
-
                 var top_items = [_]u8{0} ** area_size;
                 var bottom_items = [_]u8{0} ** area_size;
 
@@ -58,18 +57,16 @@ pub fn main() !void {
                     }
                 }
 
-                if (check_is_taller(tree, trees.items[j + 1 ..]) or
-                    check_is_taller(tree, trees.items[0..j]) or
-                    check_is_taller(tree, &top_items) or
-                    check_is_taller(tree, &bottom_items))
+                if (is_biggest_item(tree, trees.items[j + 1 ..]) or
+                    is_biggest_item(tree, trees.items[0..j]) or
+                    is_biggest_item(tree, &top_items) or
+                    is_biggest_item(tree, &bottom_items))
                 {
                     interior_count += 1;
                 }
             }
-            print("\n", .{});
         }
     }
-    print("edge_count: {}\n", .{edge_count});
     print("interior_count: {}\n", .{interior_count});
 
     print("part1: {}\n", .{edge_count + interior_count});
