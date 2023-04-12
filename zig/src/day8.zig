@@ -7,45 +7,12 @@ const print = std.debug.print;
 const area_size: u16 = 99;
 const data = @embedFile("data/day8");
 
-fn check_right_side(item: u8, right_items: []u8) bool {
-    for (right_items) |r| {
-        if (r >= item) {
+fn check_is_taller(item: u8, items: []u8) bool {
+    for (items) |i| {
+        if (i >= item) {
             return false;
         }
     }
-    // std.debug.print("right", .{});
-    // std.debug.print("right {c} >= {s}", .{ item, right_items });
-    return true;
-}
-
-fn check_left_side(item: u8, left_items: []u8) bool {
-    for (left_items) |l| {
-        if (l >= item) {
-            return false;
-        }
-    }
-    // std.debug.print("left", .{});
-    return true;
-}
-
-fn check_bottom_side(item: u8, bottom_items: []u8) bool {
-    for (bottom_items) |b| {
-        if (b >= item) {
-            return false;
-        }
-    }
-    // std.debug.print("bottom", .{});
-    return true;
-}
-
-fn chech_top_side(item: u8, top_items: []u8) bool {
-    // print("top_items: {s}", .{top_items});
-    for (top_items) |t| {
-        if (t >= item) {
-            return false;
-        }
-    }
-    // std.debug.print("top", .{});
     return true;
 }
 
@@ -91,10 +58,10 @@ pub fn main() !void {
                     }
                 }
 
-                if (check_right_side(tree, trees.items[j + 1 ..]) or
-                    check_left_side(tree, trees.items[0..j]) or
-                    chech_top_side(tree, &top_items) or
-                    check_bottom_side(tree, &bottom_items))
+                if (check_is_taller(tree, trees.items[j + 1 ..]) or
+                    check_is_taller(tree, trees.items[0..j]) or
+                    check_is_taller(tree, &top_items) or
+                    check_is_taller(tree, &bottom_items))
                 {
                     interior_count += 1;
                 }
