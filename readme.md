@@ -10,8 +10,9 @@
 - [x] Day3
 - [x] Day4
 - [x] Day5
-- [ ] Day6
-- [ ] Day7
+- [~] Day6
+- [~] Day7
+- [x] Day8
 
 ###### Typescript Language
 
