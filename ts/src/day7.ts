@@ -19,8 +19,8 @@ let part2Candidates: { name: string; size: number }[] = [];
 const totalSize = 70000000;
 const requiredSize = 30000000;
 
+// optimize this function to reduce time complexity
 const calculateFolderSize = (folder: Folder, needSize: number): number => {
-
   let currentSize = folder.files.reduce((accumulator, file) => accumulator + file.size, 0)
  currentSize += folder.folders.reduce((acc, f) => acc + calculateFolderSize(f, needSize), 0);
   if (currentSize <= 100000) {
